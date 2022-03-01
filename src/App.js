@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+
+import { useStore } from './store/useStore'
+import counterProxy, { incrementCounter, decrementCounter } from './store/counterProxy'
+
+const Counter = () => {
+  const counter = useStore(counterProxy).counter
+  console.log('Rendering Counter component!')
+
+  return <h1>Counter: {counter}</h1>
+}
 
 function App() {
+  const [checkboxChecked, setCheckboxChecked] = useState(true)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input
+        type='checkbox'
+        value={checkboxChecked}
+        onClick={setCheckboxChecked.bind(null, currentState => !currentState)}
+      />
+      {checkboxChecked && <Counter />}
+      {checkboxChecked && <Counter />}
+      {checkboxChecked && <Counter />}
+      <button onClick={decrementCounter}>Decrement Counter</button>
+      <button onClick={incrementCounter}>Increment Counter</button>
     </div>
   );
 }
